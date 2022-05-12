@@ -13,6 +13,7 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [
+            'baseUrl' => '/',
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
@@ -38,8 +39,11 @@ return [
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'album'],
             ],
         ],
     ],

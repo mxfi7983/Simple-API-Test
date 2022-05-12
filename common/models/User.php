@@ -13,6 +13,8 @@ use yii\web\IdentityInterface;
  *
  * @property integer $id
  * @property string $username
+ * @property string $firstname
+ * @property string $lastname
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $verification_token
@@ -44,7 +46,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            TimestampBehavior::class,
         ];
     }
 
@@ -56,7 +58,18 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            [['lastname', 'firstname'], 'string', 'max' => 45],
         ];
+    }
+
+    /**
+     * Gets query for [[Photos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAlbums()
+    {
+        return $this->hasMany(Album::class, ['user_id' => 'id']);
     }
 
     /**
