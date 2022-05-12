@@ -49,7 +49,8 @@ class UserController extends ActiveController
     public function actions()
     {
         $actions = parent::actions();
-        unset($actions['index'], $actions['view']); // todo: create separate Actions
+        // todo: best way to create separate Actions
+        unset($actions['index'], $actions['view']);
 
         return $actions;
     }

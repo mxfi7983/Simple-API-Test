@@ -6,6 +6,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 
 /**
@@ -47,6 +48,19 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             TimestampBehavior::class,
+        ];
+    }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'username',
+            'email',
+            'name' => function ($model) {
+                return trim($model->firstname . ' ' . $model->lastname);
+            },
+            'albums' => function ($model) { return ArrayHelper::getColumn($model->albums, 'title'); }
         ];
     }
 

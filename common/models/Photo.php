@@ -62,6 +62,12 @@ class Photo extends \yii\db\ActiveRecord
      */
     public function getUrl()
     {
-        return 'todo:getUrl()';
+        $imgId = $this->getRandomImgId();
+        return "/img/img{$imgId}.png";
+    }
+
+    private function getRandomImgId()
+    {
+        return 1 + $this->id % 10;
     }
 }

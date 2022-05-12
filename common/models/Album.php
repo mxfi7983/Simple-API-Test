@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\helpers\ArrayHelper;
+
 /**
  * This is the model class for table "album".
  *
@@ -32,6 +34,15 @@ class Album extends \yii\db\ActiveRecord
             [['user_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+        ];
+    }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'title',
+            'photos' => function ($model) { return ArrayHelper::getColumn($model->photos, 'url'); }
         ];
     }
 
