@@ -15,6 +15,17 @@ class AlbumController extends ActiveController
     ];
 
     /**
+     * @inheritdoc
+     */
+    protected function verbs()
+    {
+        return [
+            'index' => ['GET'],
+            'view' => ['GET'],
+        ];
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function behaviors()
